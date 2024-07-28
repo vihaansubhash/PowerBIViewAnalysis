@@ -24,13 +24,16 @@ def main():
         
         prefix = st.text_input("Enter the prefix to search for", "VW_")
         
-        if prefix:
-            unique_views = find_unique_views(content, prefix)
-            
-            st.write(f"Total unique views with prefix '{prefix}': {len(unique_views)}")
-            st.write("Unique Views:")
-            for view in unique_views:
-                st.write(view)
+        if st.button("Search"):
+            if prefix:
+                unique_views = find_unique_views(content, prefix)
+                
+                st.write(f"Total unique views with prefix '{prefix}': {len(unique_views)}")
+                st.write("Unique Views:")
+                for view in unique_views:
+                    st.write(view)
+            else:
+                st.error("Please enter a prefix to search for.")
 
 if __name__ == "__main__":
     main()
