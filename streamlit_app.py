@@ -22,7 +22,7 @@ def main():
         content = uploaded_file.read().decode("utf-8")
         st.text_area("Text content", content, height=200)
         
-        prefix = st.text_input("Enter the text to search for", "VW_")
+        prefix = st.text_input("Enter the text to search for")
         
         if st.button("Search"):
             if prefix:
