@@ -36,24 +36,27 @@ def main():
                 st.error("Please enter a prefix to search for.")
 
     # Add footer
-    st.markdown("""<style>
-                    .footer {
-                        position: fixed;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                        background-color: white;
-                        color: black;
-                        text-align: center;
-                        padding: 10px;
-                        font-family: Arial, sans-serif;
-                        font-size: 12px;
-                    }
-                   </style>
-                   <div class="footer">
-                       <p>Created by Vihaan Subhash</p>
-                   </div>
-                """, unsafe_allow_html=True)
+    footer = """
+    <style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: black;
+        text-align: center;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+    </style>
+    <div class="footer">
+        <p>Created by Vihaan Subhash</p>
+    </div>
+    """
+    st.markdown(footer, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
+
