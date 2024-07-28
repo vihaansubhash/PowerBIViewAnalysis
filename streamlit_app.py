@@ -1,12 +1,12 @@
 import re
 import streamlit as st
 
-def find_unique_views(text):
+def find_unique_views(text, prefix):
     # Convert entire content to uppercase
     text = text.upper()
     
-    # Find all view names with 'VW_' prefix
-    pattern = re.compile(r'\bVW_\w+\b', re.IGNORECASE)
+    # Create a dynamic regex pattern based on the prefix
+    pattern = re.compile(rf'\b{prefix}\w+\b', re.IGNORECASE)
     views = pattern.findall(text)
     
     # Remove duplicates and return the result
@@ -22,12 +22,15 @@ def main():
         content = uploaded_file.read().decode("utf-8")
         st.text_area("Text content", content, height=200)
         
-        unique_views = find_unique_views(content)
+        prefix = st.text_input("Enter the prefix to search for", "VW_")
         
-        st.write(f"Total unique views: {len(unique_views)}")
-        st.write("Unique Views:")
-        for view in unique_views:
-            st.write(view)
+        if prefix:
+            unique_views = find_unique_views(content, prefix)
+            
+            st.write(f"Total unique views with prefix '{prefix}': {len(unique_views)}")
+            st.write("Unique Views:")
+            for view in unique_views:
+                st.write(view)
 
 if __name__ == "__main__":
     main()
