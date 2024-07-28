@@ -14,7 +14,7 @@ def find_unique_views(text):
     return unique_views
 
 def main():
-    st.title("WortSodhana - Text Searcher")
+    st.title("WordSodhan - Text Searcher")
     
     uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
     
