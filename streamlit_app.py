@@ -2,10 +2,11 @@ import re
 import streamlit as st
 import pandas as pd
 
-# Function to extract table names based on a specific prefix
-def extract_with_prefix(text, prefix):
-    # Regex pattern to find words with the specified prefix
-    pattern = re.compile(rf'\b{prefix}\w+\b', re.IGNORECASE)
+# Function to extract words based on a search term
+def extract_with_search_term(text, search_term):
+    # Regex pattern to find words containing the search term
+    # This pattern will find any word that contains the search term, regardless of its position
+    pattern = re.compile(rf'\b\w*{re.escape(search_term)}\w*\b', re.IGNORECASE)
     matches = pattern.findall(text)
     return set(matches)
 
@@ -32,20 +33,20 @@ def main():
         
         st.subheader("Search for Keywords")
         
-        # Input for searching with a specific prefix
-        prefix = st.text_input("Enter the prefix to search for (e.g., 'vw_')", "vw_")
+        # Input for searching with a specific search term
+        search_term = st.text_input("Enter the keyword or prefix to search for", "")
         
         if st.button("Search"):
-            if prefix:
-                unique_keywords = extract_with_prefix(content, prefix)
+            if search_term:
+                unique_keywords = extract_with_search_term(content, search_term)
                 
-                st.write(f"Total unique keywords with prefix '{prefix}': {len(unique_keywords)}")
+                st.write(f"Total unique keywords containing '{search_term}': {len(unique_keywords)}")
                 if unique_keywords:
                     st.table(pd.DataFrame(sorted(unique_keywords), columns=["Keywords"]))
                 else:
-                    st.write("No keywords found with the specified prefix.")
+                    st.write("No keywords found with the specified term.")
             else:
-                st.error("Please enter a prefix to search for.")
+                st.error("Please enter a search term.")
 
     # Add footer
     footer = """
@@ -71,4 +72,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
