@@ -1,5 +1,6 @@
 import re
 import streamlit as st
+import pandas as pd  # Import pandas
 
 # Function to extract table names
 def extract_table_names(text):
@@ -74,3 +75,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
