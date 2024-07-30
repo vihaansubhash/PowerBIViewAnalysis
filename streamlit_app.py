@@ -1,6 +1,6 @@
 import re
 import streamlit as st
-import pandas as pd  # Import pandas
+import pandas as pd
 
 # Function to extract table names
 def extract_table_names(text):
@@ -18,9 +18,9 @@ def extract_table_names(text):
 
 def main():
     st.title("Table Name Extractor")
-    
+
     uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
-    
+
     if uploaded_file is not None:
         try:
             content = uploaded_file.read().decode("utf-8")
@@ -46,8 +46,19 @@ def main():
         st.subheader("Extracted Table Names")
         if unique_table_names:
             st.write(f"Total unique table names: {len(unique_table_names)}")
-            st.write("Table Names:")
-            st.table(pd.DataFrame(unique_table_names, columns=["Table Names"]))
+            
+            # Input for searching within the table names
+            search_term = st.text_input("Search for a table name", "")
+            
+            # Filter the table names based on the search term
+            if search_term:
+                search_term = search_term.upper()
+                filtered_table_names = [name for name in unique_table_names if search_term in name]
+            else:
+                filtered_table_names = unique_table_names
+            
+            st.write(f"Filtered table names ({len(filtered_table_names)} results):")
+            st.table(pd.DataFrame(filtered_table_names, columns=["Table Names"]))
         else:
             st.write("No table names found.")
 
@@ -75,4 +86,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
